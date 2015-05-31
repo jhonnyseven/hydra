@@ -862,18 +862,18 @@ result of `defhydra'."
              (body-map (or (car body)
                            (plist-get body-plist :bind)))
              (body-after-exit-head (plist-get body-plist :after-exit-head))
-	     (body-pre (plist-get body-plist :pre))
+             (body-pre (plist-get body-plist :pre))
              (body-body-pre (plist-get body-plist :body-pre))
              (body-before-exit (or (plist-get body-plist :post)
                                    (plist-get body-plist :before-exit)))
              (body-after-exit (plist-get body-plist :after-exit))
-	     (body-inherit (plist-get body-plist :inherit))
+             (body-inherit (plist-get body-plist :inherit))
              (body-foreign-keys (hydra--body-foreign-keys body))
              (body-exit (hydra--body-exit body)))
         (dolist (base body-inherit)
           (setq heads (append heads (copy-sequence (eval base)))))
         (dolist (h heads)
-	  (let ((len (length h)))
+          (let ((len (length h)))
             (cond ((< len 2)
                    (error "Each head should have at least two items: %S" h))
                   ((= len 2)
@@ -906,9 +906,9 @@ result of `defhydra'."
                                             body-exit
                                           h-exit))))))))))
           (plist-put (cl-cdddr h) :cmd-name (hydra--head-name h name))
-	  (when (null (cadr h)) (plist-put (cl-cdddr h) :exit t)))
+          (when (null (cadr h)) (plist-put (cl-cdddr h) :exit t)))
 
-	(hydra--make-funcall body-after-exit-head)
+        (hydra--make-funcall body-after-exit-head)
 
         (let ((doc (hydra--doc body-key body-name heads))
               (heads-nodup (hydra--delete-duplicates heads)))
@@ -955,14 +955,14 @@ result of `defhydra'."
                                      body-pre
                                      body-before-exit
                                      body-after-exit
-				     body-after-exit-head))
+                                     body-after-exit-head))
                 heads-nodup)
              ;; free up keymap prefix
              ,@(unless (or (null body-key)
                            (null body-map)
                            (hydra--callablep body-map))
-		 `((unless (keymapp (lookup-key ,body-map (kbd ,body-key)))
-		     (define-key ,body-map (kbd ,body-key) nil))))
+                 `((unless (keymapp (lookup-key ,body-map (kbd ,body-key)))
+                     (define-key ,body-map (kbd ,body-key) nil))))
              ;; bind keys
              ,@(delq nil
                      (mapcar
